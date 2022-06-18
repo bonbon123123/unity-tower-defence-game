@@ -10,6 +10,11 @@ public class CameraController : MonoBehaviour
     public float maxY = 60f;
     public float minY = 10f;
 
+    public float maxX = 0f;
+    public float minX = -10f;
+
+    public float maxZ = 0f;
+    public float minZ = 0f;
 
     void Update()
     {
@@ -23,22 +28,44 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetKey("w")|| Input.mousePosition.y>=Screen.height- panBorderThiccness)
         {
-            transform.Translate(Vector3.forward*panSpeed*Time.deltaTime,Space.World);
+            Vector3 posZ = transform.position;
+
+            posZ.z += 1*panSpeed * Time.deltaTime;
+            posZ.z = Mathf.Clamp(posZ.z, minZ, maxZ);
+            transform.position = posZ;
+
+            //transform.Translate(Vector3.forward*panSpeed*Time.deltaTime,Space.World);
 
         }
         if (Input.GetKey("s") || Input.mousePosition.y <= panBorderThiccness)
         {
-            transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
+            Vector3 posZ = transform.position;
+
+            posZ.z -= 1 * panSpeed * Time.deltaTime;
+            posZ.z = Mathf.Clamp(posZ.z, minZ, maxZ);
+            transform.position = posZ;
+            //transform.Translate(Vector3.back * panSpeed * Time.deltaTime, Space.World);
 
         }
         if (Input.GetKey("a") || Input.mousePosition.x <=  panBorderThiccness)
         {
-            transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
+            Vector3 posX = transform.position;
+
+            posX.x -= 1 * panSpeed * Time.deltaTime;
+            posX.x = Mathf.Clamp(posX.x, minX, maxX);
+            transform.position = posX;
+
+            //transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
 
         }
         if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width - panBorderThiccness)
         {
-            transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
+            Vector3 posX = transform.position;
+
+            posX.x += 1 * panSpeed * Time.deltaTime;
+            posX.x = Mathf.Clamp(posX.x, minX, maxX);
+            transform.position = posX;
+            //transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
 
         }
 
